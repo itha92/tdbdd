@@ -89,6 +89,15 @@
   <ItemGroup>
     <None Include="Resources\Gnome-Document-Send-64.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Application-Default-Icon-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Application-Default-Orange-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Application-Default-Red-64.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
