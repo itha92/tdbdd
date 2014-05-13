@@ -52,10 +52,7 @@ namespace WindowsFormsApplication2
 
                 this.button2.Enabled = false;
                 entidades = new List<string>(txt_relacion.Text.Split(','));
-                foreach (string el in entidades)
-                {
-                    Console.WriteLine(el);
-                }
+                
                 
             }
         }
@@ -82,12 +79,14 @@ namespace WindowsFormsApplication2
 
             int index = entidades.IndexOf(txt_df1.Text.Split(',')[0]);
             int index2;
-            List<string> tmp = new List<string>(txt_df2.Text.Split(','));
+            string sin = txt_df2.Text;
+            sin = sin.Remove(sin.Length - 1, 1);
+            List<string> tmp = new List<string>(sin.Split(','));           
             
             foreach (string el in tmp)
             {
-                Console.WriteLine(el);
                 index2 = entidades.IndexOf(el);
+                matriz[index][index] = 1;
                 matriz[index][index2] = 1;
             }
 
@@ -95,11 +94,13 @@ namespace WindowsFormsApplication2
             {
                 for (int j = 0; j < matriz.Length; j++)
                 {
-                    matriz[i][j] = 0;
                     Console.Write("[" + matriz[i][j] + "]");
                 }
                 Console.WriteLine("");
             }
+
+            txt_df1.Text = "";
+            txt_df2.Text = "";
 
         }
 

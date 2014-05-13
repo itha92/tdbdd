@@ -116,7 +116,6 @@
             // 
             // txt_df2
             // 
-            this.txt_df2.Enabled = false;
             this.txt_df2.Location = new System.Drawing.Point(335, 319);
             this.txt_df2.Name = "txt_df2";
             this.txt_df2.Size = new System.Drawing.Size(197, 29);
@@ -124,7 +123,6 @@
             // 
             // txt_df1
             // 
-            this.txt_df1.Enabled = false;
             this.txt_df1.Location = new System.Drawing.Point(25, 319);
             this.txt_df1.Name = "txt_df1";
             this.txt_df1.Size = new System.Drawing.Size(197, 29);
