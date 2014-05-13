@@ -25,13 +25,7 @@ namespace WindowsFormsApplication2
         {
             txt_df1.Text += comboBox1.SelectedItem + ",";
 
-            int size = txt_relacion.Text.Split(',').Length;
-            matriz = new int[size][];
-
-            for (int i = 0; i < matriz.Length; i++)
-            {
-                matriz[i] = new int[size];
-            }
+            
                         
         }
 
@@ -48,6 +42,14 @@ namespace WindowsFormsApplication2
                     i.val = str;
                     comboBox1.Items.Add(i);
                     comboBox2.Items.Add(i);
+                }
+
+                int size = l.Count;
+                matriz = new int[size][];
+
+                for (int k = 0; k < matriz.Length; k++)
+                {
+                    matriz[k] = new int[size];
                 }
 
                 this.button2.Enabled = false;
@@ -90,14 +92,7 @@ namespace WindowsFormsApplication2
                 matriz[index][index2] = 1;
             }
 
-            for (int i = 0; i < matriz.Length; i++)
-            {
-                for (int j = 0; j < matriz.Length; j++)
-                {
-                    Console.Write("[" + matriz[i][j] + "]");
-                }
-                Console.WriteLine("");
-            }
+            ImprimirMatriz(matriz);
 
             txt_df1.Text = "";
             txt_df2.Text = "";
@@ -108,6 +103,33 @@ namespace WindowsFormsApplication2
         {
 
            
+        }
+
+        public void ImprimirMatriz(int[][] m)
+        {
+            for (int i = 0; i < m.Length; i++)
+            {
+                if (i == 0)
+                {
+                    foreach (string en in entidades)
+                    {
+                        Console.Write("["+en+"]");
+                    }
+                }
+                for (int j = 0; j < m.Length; j++)
+                {
+                    if (i == 0 && j == 0)
+                    {
+                        foreach (string en in entidades)
+                        {
+                            Console.WriteLine("[" + en + "]");
+                        }
+                    }
+                    Console.Write("[" + m[i][j] + "]");
+                }
+                Console.WriteLine("");
+            }
+            Console.WriteLine();
         }
     }
 }
