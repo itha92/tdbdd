@@ -111,19 +111,18 @@ namespace WindowsFormsApplication2
             {
                 if (i == 0)
                 {
+                    Console.Write("[ ]");
                     foreach (string en in entidades)
                     {
                         Console.Write("["+en+"]");
                     }
+                    Console.WriteLine();
                 }
                 for (int j = 0; j < m.Length; j++)
                 {
-                    if (i == 0 && j == 0)
+                    if ( j == 0)
                     {
-                        foreach (string en in entidades)
-                        {
-                            Console.WriteLine("[" + en + "]");
-                        }
+                        Console.Write("[" + entidades[i] + "]");
                     }
                     Console.Write("[" + m[i][j] + "]");
                 }
