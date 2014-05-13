@@ -18,12 +18,21 @@ namespace WindowsFormsApplication2
             InitializeComponent();
         }
 
+        public int[][] matriz;
+        public List<string> entidades;
+
         private void button1_Click(object sender, EventArgs e)
         {
+            txt_df1.Text += comboBox1.SelectedItem + ",";
 
-            ListBoxItem lbi = new ListBoxItem(comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString());
-            listBox1.Items.Add(lbi);
-            
+            int size = txt_relacion.Text.Split(',').Length;
+            matriz = new int[size][];
+
+            for (int i = 0; i < matriz.Length; i++)
+            {
+                matriz[i] = new int[size];
+            }
+                        
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -41,15 +50,63 @@ namespace WindowsFormsApplication2
                     comboBox2.Items.Add(i);
                 }
 
-
                 this.button2.Enabled = false;
-
+                entidades = new List<string>(txt_relacion.Text.Split(','));
+                foreach (string el in entidades)
+                {
+                    Console.WriteLine(el);
+                }
+                
             }
         }
 
         private void tabPage2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if ( txt_df2.Text.Split(',').Length < 0 )
+            {
+                Console.WriteLine("solo hay una");
+            }
+            string tmp = txt_df2.Text;
+            tmp = comboBox2.SelectedItem + ",";
+            txt_df2.Text += tmp ;
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Add(txt_df1.Text + "->" + txt_df2.Text);
+
+            int index = entidades.IndexOf(txt_df1.Text.Split(',')[0]);
+            int index2;
+            List<string> tmp = new List<string>(txt_df2.Text.Split(','));
+            
+            foreach (string el in tmp)
+            {
+                Console.WriteLine(el);
+                index2 = entidades.IndexOf(el);
+                matriz[index][index2] = 1;
+            }
+
+            for (int i = 0; i < matriz.Length; i++)
+            {
+                for (int j = 0; j < matriz.Length; j++)
+                {
+                    matriz[i][j] = 0;
+                    Console.Write("[" + matriz[i][j] + "]");
+                }
+                Console.WriteLine("");
+            }
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+           
         }
     }
 }
