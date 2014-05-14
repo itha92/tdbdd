@@ -104,11 +104,11 @@
             this.button10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button10.Image = global::Normalizar.Properties.Resources.Dialog_Apply_64;
-            this.button10.Location = new System.Drawing.Point(134, 394);
+            this.button10.Location = new System.Drawing.Point(25, 390);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(311, 72);
+            this.button10.Size = new System.Drawing.Size(507, 72);
             this.button10.TabIndex = 22;
-            this.button10.Text = "Agregar";
+            this.button10.Text = "Agregar Relaciones Funcionales";
             this.button10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button10.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button10.UseVisualStyleBackColor = true;
@@ -145,9 +145,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(113, 546);
+            this.button3.Location = new System.Drawing.Point(25, 503);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(471, 55);
+            this.button3.Size = new System.Drawing.Size(507, 63);
             this.button3.TabIndex = 18;
             this.button3.Text = "Generar llaves candidatas";
             this.button3.UseVisualStyleBackColor = true;
@@ -160,7 +160,7 @@
             this.button2.Image = global::Normalizar.Properties.Resources.Gnome_Document_Send_64;
             this.button2.Location = new System.Drawing.Point(25, 93);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(471, 58);
+            this.button2.Size = new System.Drawing.Size(507, 58);
             this.button2.TabIndex = 17;
             this.button2.Text = "Cargar";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -215,9 +215,9 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 24;
-            this.listBox1.Location = new System.Drawing.Point(570, 50);
+            this.listBox1.Location = new System.Drawing.Point(538, 50);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(374, 436);
+            this.listBox1.Size = new System.Drawing.Size(322, 412);
             this.listBox1.TabIndex = 13;
             // 
             // txt_relacion
@@ -225,7 +225,7 @@
             this.txt_relacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_relacion.Location = new System.Drawing.Point(25, 50);
             this.txt_relacion.Name = "txt_relacion";
-            this.txt_relacion.Size = new System.Drawing.Size(471, 31);
+            this.txt_relacion.Size = new System.Drawing.Size(507, 31);
             this.txt_relacion.TabIndex = 12;
             // 
             // label3

@@ -18,15 +18,16 @@ namespace WindowsFormsApplication2
             InitializeComponent();
         }
 
+        public int contador_entidades = 0;
         public int[][] matriz;
         public List<string> entidades;
+        public List<Nodo> relaciones = new List<Nodo>();
+        public bool creada = false;
 
         private void button1_Click(object sender, EventArgs e)
         {
             txt_df1.Text += comboBox1.SelectedItem + ",";
-
             
-                        
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -34,8 +35,8 @@ namespace WindowsFormsApplication2
             if (txt_relacion.Text != "")
             {
                 ComboboxItem i;
-                List<string> l = new List<string>(txt_relacion.Text.Split(','));
-                foreach (string str in l)
+                entidades = new List<string>(txt_relacion.Text.Split(','));
+                foreach (string str in entidades)
                 {
                     i = new ComboboxItem();
                     i.text = str;
@@ -44,16 +45,11 @@ namespace WindowsFormsApplication2
                     comboBox2.Items.Add(i);
                 }
 
-                int size = l.Count;
-                matriz = new int[size][];
-
-                for (int k = 0; k < matriz.Length; k++)
-                {
-                    matriz[k] = new int[size];
-                }
-
+                comboBox1.SelectedIndex = 1;
+                comboBox2.SelectedIndex = 1;
+                
                 this.button2.Enabled = false;
-                entidades = new List<string>(txt_relacion.Text.Split(','));
+                
                 
                 
             }
@@ -77,22 +73,16 @@ namespace WindowsFormsApplication2
 
         private void button10_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Add(txt_df1.Text + "->" + txt_df2.Text);
+            listBox1.Items.Add(txt_df1.Text.Remove(txt_df1.Text.Length - 1, 1) + "->" + txt_df2.Text.Remove(txt_df2.Text.Length - 1, 1));
 
-            int index = entidades.IndexOf(txt_df1.Text.Split(',')[0]);
-            int index2;
-            string sin = txt_df2.Text;
-            sin = sin.Remove(sin.Length - 1, 1);
-            List<string> tmp = new List<string>(sin.Split(','));           
+            contador_entidades++;
+
+            Nodo n = new Nodo();
+            n.l_izq = new List<string>(txt_df1.Text.Remove(txt_df1.Text.Length-1,1).Split(','));
+            n.l_der = new List<string>(txt_df2.Text.Remove(txt_df2.Text.Length - 1, 1).Split(','));
+
             
-            foreach (string el in tmp)
-            {
-                index2 = entidades.IndexOf(el);
-                matriz[index][index] = 1;
-                matriz[index][index2] = 1;
-            }
-
-            ImprimirMatriz(matriz);
+            relaciones.Add(n);
 
             txt_df1.Text = "";
             txt_df2.Text = "";
@@ -101,8 +91,43 @@ namespace WindowsFormsApplication2
 
         private void button3_Click(object sender, EventArgs e)
         {
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button9.Enabled = false;
+            button10.Enabled = false;
 
-           
+
+            if (!this.creada)
+            {
+                int size = entidades.Count;
+                matriz = new int[size][];
+
+                for (int k = 0; k < matriz.Length; k++)
+                {
+                    matriz[k] = new int[contador_entidades];
+                }
+            }
+            this.creada = true;
+
+            int index = entidades.IndexOf(txt_df1.Text.Split(',')[0]);
+            int index2;
+            string sin = txt_df2.Text;
+            sin = sin.Remove(sin.Length - 1, 1);
+            List<string> tmp = new List<string>(sin.Split(','));
+
+            foreach (string el in tmp)
+            {
+                index2 = entidades.IndexOf(el);
+                matriz[index][index] = 1;
+                matriz[index][index2] = 1;
+            }
+
+
+
+
+            ImprimirMatriz(matriz);
+
+
         }
 
         public void ImprimirMatriz(int[][] m)

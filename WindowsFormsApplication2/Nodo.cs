@@ -8,8 +8,8 @@ namespace Normalizar
 {
     class Nodo
     {
-        public List<string> df { get; set; }
-        public List<string> subconjunto { get; set; }
-        
+        public List<string> l_izq {get;set;}
+        public List<string> l_der {get; set;}
+
     }
 }
