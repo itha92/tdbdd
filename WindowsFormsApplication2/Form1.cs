@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Normalizar;
+using System.Net;
+using System.IO;
 
 namespace WindowsFormsApplication2
 {
@@ -23,6 +25,9 @@ namespace WindowsFormsApplication2
         public List<string> entidades;
         private List<Nodo> relaciones;
         public bool creada = false;
+
+        public List<string> relationships;
+        string attr2 = " ";
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -50,6 +55,7 @@ namespace WindowsFormsApplication2
                 
                 this.button2.Enabled = false;
                 relaciones = new List<Nodo>();
+                relationships = new List<string>();
             }
         }
 
@@ -71,15 +77,44 @@ namespace WindowsFormsApplication2
 
         private void button10_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Add(txt_df1.Text.Remove(txt_df1.Text.Length - 1, 1) + "->" + txt_df2.Text.Remove(txt_df2.Text.Length - 1, 1));
+            
+             //--------------------------------------------------------------------
 
+            string[] attr_tmp = txt_relacion.Text.Split(',');
+
+            attr_tmp = txt_df1.Text.Split(',');
+
+            for (int j = 0; j < attr_tmp.Length; j++)
+            {
+                attr2 += attr_tmp[j] + "";
+            }
+
+            Console.WriteLine(attr2);
+
+            attr2 += "-> ";
+
+            attr_tmp = txt_df2.Text.Split(',');
+
+            for (int j = 0; j < attr_tmp.Length; j++)
+            {
+                attr2 += attr_tmp[j] + "";
+            }
+
+            attr2 += ",";
+            Console.WriteLine(attr2);
+
+
+            //-----------------------------------------------------------------------
+            listBox1.Items.Add(txt_df1.Text.Remove(txt_df1.Text.Length - 1, 1) + "->" + txt_df2.Text.Remove(txt_df2.Text.Length - 1, 1));
+            
+            
             contador_entidades++;
 
             Nodo n = new Nodo();
-            n.l_izq = new List<string>(txt_df1.Text.Remove(txt_df1.Text.Length-1,1).Split(','));
+            n.l_izq = new List<string>(txt_df1.Text.Remove(txt_df1.Text.Length - 1, 1).Split(','));
             n.l_der = new List<string>(txt_df2.Text.Remove(txt_df2.Text.Length - 1, 1).Split(','));
 
-            
+
             relaciones.Add(n);
 
             txt_df1.Text = "";
@@ -90,65 +125,58 @@ namespace WindowsFormsApplication2
         private void button3_Click(object sender, EventArgs e)
         {
 
-            Habilitar_botones(false);
+            Cierre_Transitivo();
+            
+            //Habilitar_botones(false);
            
-            if (!this.creada)
-            {
-                int size = entidades.Count;
-                matriz = new int[contador_entidades][];
+            //if (!this.creada)
+            //{
+            //    int size = entidades.Count;
+            //    matriz = new int[contador_entidades][];
 
-                for (int k = 0; k < matriz.Length; k++)
-                {
-                    matriz[k] = new int[size];
-                }
-            }
-            this.creada = true;
+            //    for (int k = 0; k < matriz.Length; k++)
+            //    {
+            //        matriz[k] = new int[size];
+            //    }
+            //}
+            //this.creada = true;
 
-            //llenar matriz con 1
+            ////llenar matriz con 1
 
-            int index1 = 0;
-            int index2 = 0;
-            foreach (Nodo n in relaciones)
-            {
-                index1 = relaciones.IndexOf(n);
-                foreach (string s in n.l_izq)
-                {
-                    index2 = entidades.IndexOf(s);
-                    matriz[index1][index2] = 1;
-                }
-                foreach (string s in n.l_der)
-                {
-                    index2 = entidades.IndexOf(s);
-                    matriz[index1][index2] = 1;
-                }
-            }
+            //int index1 = 0;
+            //int index2 = 0;
+
+            //foreach (Nodo n in relaciones)
+            //{
+            //    index1 = relaciones.IndexOf(n);
+            //    foreach (string s in n.l_izq)
+            //    {
+            //        index2 = entidades.IndexOf(s);
+            //        matriz[index1][index2] = 1;
+            //    }
+            //    foreach (string s in n.l_der)
+            //    {
+            //        index2 = entidades.IndexOf(s);
+            //        matriz[index1][index2] = 1;
+            //    }
+            //}
 
 
-            ImprimirMatriz(matriz);
+            //ImprimirMatriz(matriz);
 
 
         }
+
+        //imprimir matriz
 
         public void ImprimirMatriz(int[][] m)
         {
             for (int i = 0; i < m.Length; i++)
             {
-                //if (i == 0)
-                //{
-                    
-                //    Console.Write("[ ]");
-                //    foreach (string en in entidades)
-                //    {
-                //        Console.Write("["+en+"]");
-                //    }
-                //    Console.WriteLine();
-                //}
+              
                 for (int j = 0; j < m[0].Length; j++)
                 {
-                    if ( j == 0)
-                    {
-                        //Console.Write("[" + relaciones[i].l_izq[j] + "]");
-                    }
+
                     Console.Write("[" + m[i][j] + "]");
                 }
                 Console.WriteLine("");
@@ -160,6 +188,13 @@ namespace WindowsFormsApplication2
         {
             Habilitar_botones(true);
         }
+
+        /**limpiar el form dependiendo de la accion
+         * Si solo se quieren desactivar los botones se llama:
+         * Habilitar_botones(false);
+         * si se quiere limipiar todo:
+         * Habilitar_botones(true);
+         */
 
         public void Habilitar_botones(bool habilitar)
         {
@@ -182,5 +217,73 @@ namespace WindowsFormsApplication2
                 creada = false;
             }
         }
+
+        public void Cierre_Transitivo()
+        {
+
+            string[] attr_tmp = txt_relacion.Text.Split(',');
+            string attr = "";
+            for (int j = 0; j < attr_tmp.Length; j++)
+            {
+                attr += attr_tmp[j] + " ";
+            }
+
+            // A C -> B, C -> D E, B -> A
+
+            //string arr2 = txt_df1.Text.Remove(txt_df1.Text.Length - 1, 1) + "->" + txt_df2.Text.Remove(txt_df2.Text.Length - 1, 1);
+            
+            //attr_tmp = txt_df1.Text.Remove(txt_df1.Text.Length - 1, 1).Split(',');
+
+            //for (int j = 0; j < attr_tmp.Length; j++)
+            //{
+            //    attr2 += attr_tmp[j] + " ";
+            //}
+
+            //attr2 += "-> ";
+
+            //attr_tmp = txt_df2.Text.Remove(txt_df2.Text.Length - 1, 1).Split(',');
+
+            //for (int j = 0; j < attr_tmp.Length; j++)
+            //{
+            //    attr2 += attr_tmp[j] + " ";
+            //}
+
+            attr2 = attr2.Remove(attr2.Length - 1, 1);
+            Console.WriteLine(attr2);
+
+
+            string url = "http://www.koffeinhaltig.com/fds/kandidatenschluessel.php?attrs="+attr+"&fds="+attr2+"&language=en";
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            Stream resStream = response.GetResponseStream();
+
+            StreamReader sr = new StreamReader(resStream);
+
+            string sLine = "";
+            string resp = "";
+            int i = 0;
+            int cont = 0;
+            while (sLine != null)
+            {
+                i++;
+                sLine = sr.ReadLine();
+                if (sLine != null)
+                {
+                    cont++;
+                    Console.WriteLine(i+":"+  sLine);
+                    resp += sLine+"\n";
+                    
+                }
+            }
+
+            string respuesta = resp.Split('\n')[resp.Split('\n').Length - 6].Substring(28);
+            
+            MessageBox.Show(respuesta.Remove(respuesta.Length - 13),"Llaves candidatas");
+            
+        }
+    
     }
 }
