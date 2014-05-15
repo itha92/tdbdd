@@ -139,5 +139,25 @@ namespace Normalizar.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Gnome_List_Add_64 {
+            get {
+                object obj = ResourceManager.GetObject("Gnome-List-Add-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Gnome_X_Office_Spreadsheet_64 {
+            get {
+                object obj = ResourceManager.GetObject("Gnome-X-Office-Spreadsheet-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

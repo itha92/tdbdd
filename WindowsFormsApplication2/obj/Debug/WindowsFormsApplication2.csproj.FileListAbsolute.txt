@@ -7,3 +7,5 @@ c:\users\wilfredoithamar\documents\visual studio 2013\Projects\WindowsFormsAppli
 c:\users\wilfredoithamar\documents\visual studio 2013\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.csproj.GenerateResource.Cache
 c:\users\wilfredoithamar\documents\visual studio 2013\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\Normalizar.exe
 c:\users\wilfredoithamar\documents\visual studio 2013\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\Normalizar.pdb
+C:\Users\WilfredoIthamar\documents\visual studio 2013\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\Normalizar.Form1.resources
+C:\Users\WilfredoIthamar\documents\visual studio 2013\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\Normalizar.Normalize.resources

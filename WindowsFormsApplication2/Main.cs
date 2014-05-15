@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Normalizar;
 using System.Net;
 using System.IO;
+using DB_Normalization;
 
 namespace WindowsFormsApplication2
 {
@@ -31,8 +32,12 @@ namespace WindowsFormsApplication2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            txt_df1.Text += comboBox1.SelectedItem + ",";
-            
+
+            if (!txt_df1.Text.Contains(comboBox1.SelectedItem.ToString()))
+            {
+                txt_df1.Text += comboBox1.SelectedItem + ",";
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -66,13 +71,14 @@ namespace WindowsFormsApplication2
 
         private void button9_Click(object sender, EventArgs e)
         {
-            if ( txt_df2.Text.Split(',').Length < 0 )
+            if (!txt_df2.Text.Contains(comboBox2.SelectedItem.ToString()))
             {
-                Console.WriteLine("solo hay una");
+                txt_df2.Text += comboBox2.SelectedItem + ",";
             }
-            string tmp = txt_df2.Text;
-            tmp = comboBox2.SelectedItem + ",";
-            txt_df2.Text += tmp ;
+
+            //string tmp = txt_df2.Text;
+            //tmp = comboBox2.SelectedItem + ",";
+            //txt_df2.Text += tmp ;
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -86,7 +92,7 @@ namespace WindowsFormsApplication2
 
             for (int j = 0; j < attr_tmp.Length; j++)
             {
-                attr2 += attr_tmp[j] + "";
+                attr2 += attr_tmp[j] + " ";
             }
 
             Console.WriteLine(attr2);
@@ -215,6 +221,7 @@ namespace WindowsFormsApplication2
                 txt_relacion.Text = "";
 
                 creada = false;
+                entidades = new List<string>();
             }
         }
 
@@ -249,40 +256,52 @@ namespace WindowsFormsApplication2
             //}
 
             attr2 = attr2.Remove(attr2.Length - 1, 1);
-            Console.WriteLine(attr2);
-
-
-            string url = "http://www.koffeinhaltig.com/fds/kandidatenschluessel.php?attrs="+attr+"&fds="+attr2+"&language=en";
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            Stream resStream = response.GetResponseStream();
-
-            StreamReader sr = new StreamReader(resStream);
-
-            string sLine = "";
-            string resp = "";
-            int i = 0;
-            int cont = 0;
-            while (sLine != null)
+            
+            try
             {
-                i++;
-                sLine = sr.ReadLine();
-                if (sLine != null)
+                string url = "http://www.koffeinhaltig.com/fds/kandidatenschluessel.php?attrs=" + attr + "&fds=" + attr2 + "&language=en";
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                Stream resStream = response.GetResponseStream();
+
+                StreamReader sr = new StreamReader(resStream);
+
+                string sLine = "";
+                string resp = "";
+                int i = 0;
+                int cont = 0;
+                while (sLine != null)
                 {
-                    cont++;
-                    Console.WriteLine(i+":"+  sLine);
-                    resp += sLine+"\n";
-                    
+                    i++;
+                    sLine = sr.ReadLine();
+                    if (sLine != null)
+                    {
+                        cont++;
+                        //Console.WriteLine(i+":"+  sLine);
+                        resp += sLine + "\n";
+                    }
                 }
+
+                string respuesta = resp.Split('\n')[resp.Split('\n').Length - 6].Substring(28);
+
+                MessageBox.Show(respuesta.Remove(respuesta.Length - 13), "Llaves candidatas");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Hubo un error, por favor intente de nuevo");
             }
 
-            string respuesta = resp.Split('\n')[resp.Split('\n').Length - 6].Substring(28);
             
-            MessageBox.Show(respuesta.Remove(respuesta.Length - 13),"Llaves candidatas");
             
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Normalize n = new Normalize();
+            n.ShowDialog(this);
         }
     
     }
