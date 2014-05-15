@@ -103,9 +103,29 @@ namespace Normalizar.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Gnome_Accessories_Calculator_64 {
+            get {
+                object obj = ResourceManager.GetObject("Gnome-Accessories-Calculator-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Gnome_Document_Send_64 {
             get {
                 object obj = ResourceManager.GetObject("Gnome-Document-Send-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Gnome_Edit_Delete_64 {
+            get {
+                object obj = ResourceManager.GetObject("Gnome-Edit-Delete-64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

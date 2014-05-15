@@ -21,7 +21,7 @@ namespace WindowsFormsApplication2
         public int contador_entidades = 0;
         public int[][] matriz;
         public List<string> entidades;
-        public List<Nodo> relaciones = new List<Nodo>();
+        private List<Nodo> relaciones;
         public bool creada = false;
 
         private void button1_Click(object sender, EventArgs e)
@@ -49,9 +49,7 @@ namespace WindowsFormsApplication2
                 comboBox2.SelectedIndex = 1;
                 
                 this.button2.Enabled = false;
-                
-                
-                
+                relaciones = new List<Nodo>();
             }
         }
 
@@ -91,38 +89,39 @@ namespace WindowsFormsApplication2
 
         private void button3_Click(object sender, EventArgs e)
         {
-            button1.Enabled = false;
-            button2.Enabled = false;
-            button9.Enabled = false;
-            button10.Enabled = false;
 
-
+            Habilitar_botones(false);
+           
             if (!this.creada)
             {
                 int size = entidades.Count;
-                matriz = new int[size][];
+                matriz = new int[contador_entidades][];
 
                 for (int k = 0; k < matriz.Length; k++)
                 {
-                    matriz[k] = new int[contador_entidades];
+                    matriz[k] = new int[size];
                 }
             }
             this.creada = true;
 
-            int index = entidades.IndexOf(txt_df1.Text.Split(',')[0]);
-            int index2;
-            string sin = txt_df2.Text;
-            sin = sin.Remove(sin.Length - 1, 1);
-            List<string> tmp = new List<string>(sin.Split(','));
+            //llenar matriz con 1
 
-            foreach (string el in tmp)
+            int index1 = 0;
+            int index2 = 0;
+            foreach (Nodo n in relaciones)
             {
-                index2 = entidades.IndexOf(el);
-                matriz[index][index] = 1;
-                matriz[index][index2] = 1;
+                index1 = relaciones.IndexOf(n);
+                foreach (string s in n.l_izq)
+                {
+                    index2 = entidades.IndexOf(s);
+                    matriz[index1][index2] = 1;
+                }
+                foreach (string s in n.l_der)
+                {
+                    index2 = entidades.IndexOf(s);
+                    matriz[index1][index2] = 1;
+                }
             }
-
-
 
 
             ImprimirMatriz(matriz);
@@ -134,26 +133,54 @@ namespace WindowsFormsApplication2
         {
             for (int i = 0; i < m.Length; i++)
             {
-                if (i == 0)
-                {
-                    Console.Write("[ ]");
-                    foreach (string en in entidades)
-                    {
-                        Console.Write("["+en+"]");
-                    }
-                    Console.WriteLine();
-                }
-                for (int j = 0; j < m.Length; j++)
+                //if (i == 0)
+                //{
+                    
+                //    Console.Write("[ ]");
+                //    foreach (string en in entidades)
+                //    {
+                //        Console.Write("["+en+"]");
+                //    }
+                //    Console.WriteLine();
+                //}
+                for (int j = 0; j < m[0].Length; j++)
                 {
                     if ( j == 0)
                     {
-                        Console.Write("[" + entidades[i] + "]");
+                        //Console.Write("[" + relaciones[i].l_izq[j] + "]");
                     }
                     Console.Write("[" + m[i][j] + "]");
                 }
                 Console.WriteLine("");
             }
             Console.WriteLine();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Habilitar_botones(true);
+        }
+
+        public void Habilitar_botones(bool habilitar)
+        {
+            button1.Enabled = habilitar;
+            button2.Enabled = habilitar;
+            button9.Enabled = habilitar;
+            button10.Enabled = habilitar;
+            comboBox1.Enabled = habilitar;
+            comboBox2.Enabled = habilitar;
+
+            if (habilitar)
+            {
+                txt_df1.Text = "";
+                txt_df2.Text = "";
+                comboBox1.Items.Clear();
+                comboBox2.Items.Clear();
+                listBox1.Items.Clear();
+                txt_relacion.Text = "";
+
+                creada = false;
+            }
         }
     }
 }
